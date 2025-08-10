@@ -66,8 +66,7 @@ Instructions:
 - Keep answers short, clear, and focused.
 - Your response should address points made by the opposing argument to engage in a meaningful debate.
 - Feel free to ask questions or challenge the opposing side’s reasoning to encourage interaction.
-- If you are Defense, start your response with "I support..."
-- If you are Attack, start your response with "I oppose..."
+- If you are starting the debate start with I support, or I oppose and state your argument.
 
 Example:
 Topic: We should imprison teens if they commit crimes.
