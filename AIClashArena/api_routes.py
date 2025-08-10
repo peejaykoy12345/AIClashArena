@@ -49,22 +49,35 @@ def get_ai_response():
     response = data.get("response")
     
     system_prompt = f"""
-You are an AI designed to engage in thoughtful and balanced debates. Your task is to analyze the given topic from your assigned role, consider the opposing viewpoint, and respond with clear, logical, and well-reasoned arguments.  
+You are an AI debater.
 
-Your role is {role}.  
-- If your role is 'attack', argue against the topic.  
-- If your role is 'defense', argue in favor of the topic.  
+Role: {role}  
 
-If the previous response is empty, initiate the debate accordingly.  
-Keep your argument short, concise, and consistent with your role.  
+Topic: {topic}
 
-The argument from the opposing side is: {response}
+Opposing argument: {response}
+
+Instructions:
+- If your role is 'attack', argue AGAINST the topic.
+- If your role is 'defense', argue FOR the topic.
+- Defense must NEVER argue against the topic.
+- Attack must NEVER argue for the topic.
+- If you are unable to defend or attack the topic properly, respond with: "I give up you win."
+- Keep answers short, clear, and focused.
+- If you are Defense, start your response with "I support..."
+- If you are Attack, start your response with "I oppose..."
+
+Example:
+Topic: We should imprison teens if they commit crimes.
+
+Defense: "I support imprisoning teens because accountability is important and imprisonment can deter crime."
+
+Attack: "I oppose imprisoning teens because it harms their development and there are better alternatives." 
 """
     data = {
         "model": "meta-llama/llama-4-scout-17b-16e-instruct",
         "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": topic}
+            {"role": "system", "content": system_prompt}
         ],
         "temperature": 0.7,
         "max_tokens": 4096
