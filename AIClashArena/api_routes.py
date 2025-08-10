@@ -40,11 +40,21 @@ def get_ai_response():
     if not topic:
         return jsonify({"error": "Missing 'topic' in request"}), 400
     
-    system_prompt = ""
+    role = data.get("role")
+    if not role:
+        return jsonify({"error": "Missing 'role' in request"}), 400
+    
+    response = data.get("response")
+    
+    system_prompt = f"""
+    You are an AI designed to engage in thoughtful and balanced debates. Your task is to analyze the given topic from your assigned role, consider the opposing viewpoint, and respond with clear, logical, and well-reasoned arguments.  
+    Your role is {role}. If the previous response is empty, initiate the debate accordingly."""
+    
     data = {
         "model": "meta-llama/llama-4-scout-17b-16e-instruct",
         "messages": [
             {"role": "system", "content": system_prompt},
+            {"role": "assistant", "content": response},
             {"role": "user", "content": topic}
         ],
         "temperature": 0.7,
