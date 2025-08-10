@@ -43,7 +43,9 @@ This project serves as a research and exploration platform for AI-driven argumen
    cd AIClashArena
    ```
 2. Install dependencies:
+   ```powershell
    pip install -r requirements.txt
+   ```
 
 3. Create a .env file in the root directory and add your API key:
     GROQ_API_KEY=your_api_key_here
