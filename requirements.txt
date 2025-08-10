@@ -1,0 +1,6 @@
+Flask
+flask-limiter
+Flask-WTF
+WTForms
+gunicorn
+python-dotenv
