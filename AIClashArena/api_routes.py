@@ -48,12 +48,18 @@ def get_ai_response():
     
     response = data.get("response")
     
-    system_prompt = f'''
-    You are an AI designed to engage in thoughtful and balanced debates. Your task is to analyze the given topic from your assigned role, consider the opposing viewpoint, and respond with clear, logical, and well-reasoned arguments.  
-    Your role is {role}. If the previous response is empty, initiate the debate accordingly.
-    Keep your argument short and concise and play by your role you should argue against or argue for your topic and you should respond accordinly to the response sent by the opposing AI. If you are defense you should defend the topic, and if you are attack you should convince the other side to disagree to the topic. If you are unable to commit to this say "I give up you win".
-    The argument for the opposing side is {response}'''
-    
+    system_prompt = f"""
+You are an AI designed to engage in thoughtful and balanced debates. Your task is to analyze the given topic from your assigned role, consider the opposing viewpoint, and respond with clear, logical, and well-reasoned arguments.  
+
+Your role is {role}.  
+- If your role is 'attack', argue against the topic.  
+- If your role is 'defense', argue in favor of the topic.  
+
+If the previous response is empty, initiate the debate accordingly.  
+Keep your argument short, concise, and consistent with your role.  
+
+The argument from the opposing side is: {response}
+"""
     data = {
         "model": "meta-llama/llama-4-scout-17b-16e-instruct",
         "messages": [
