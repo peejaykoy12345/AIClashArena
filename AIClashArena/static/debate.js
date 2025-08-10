@@ -20,19 +20,25 @@ function escapeHTML(str) {
   });
 }
 
+function markdownToHTML(text) {
+  return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+}
+
 function appendMessage(role, text) {
   const div = document.createElement("div");
   div.classList.add("mb-2", "p-2", "rounded");
   div.style.backgroundColor = role === "attack" ? "#f8d7da" : "#d1e7dd";
   div.style.color = role === "attack" ? "#842029" : "#0f5132";
 
-  const safeText = escapeHTML(text).replace(/\n/g, "<br>");
+  let safeText = escapeHTML(text);
+  safeText = markdownToHTML(safeText);
+  safeText = safeText.replace(/\n/g, "<br>");
+
   div.innerHTML = `<strong>${role.toUpperCase()}:</strong><br>${safeText}`;
 
   debateContainer.appendChild(div);
   debateContainer.scrollTop = debateContainer.scrollHeight;
 }
-
 
 
 async function fetchNextResponse() {
@@ -52,7 +58,7 @@ async function fetchNextResponse() {
       }),
     });
 
-    const data = await res.json(); // parse JSON once
+    const data = await res.json(); 
 
     if (!res.ok) {
       throw new Error(data.error || "Failed to fetch response");
@@ -69,7 +75,6 @@ async function fetchNextResponse() {
 
 nextTurnBtn.addEventListener("click", fetchNextResponse);
 
-// Optionally, start the debate on page load with empty lastResponse
 window.addEventListener("DOMContentLoaded", () => {
   fetchNextResponse();
 });
