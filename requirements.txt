@@ -4,3 +4,4 @@ Flask-WTF
 WTForms
 gunicorn
 python-dotenv
+requests
