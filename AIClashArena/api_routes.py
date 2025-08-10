@@ -12,7 +12,8 @@ api_key = os.getenv("GROQ_API_KEY")
 
 api_bp = Blueprint('API', __name__)
 
-limiter = Limiter(app, key_func=get_remote_address, default_limits=["5 per minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["5 per minute"])
+limiter.init_app(app)
 
 API_TOKEN = "SKIBIDI TOILET"
 
