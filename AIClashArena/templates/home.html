@@ -1,5 +1,50 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="text-center mt-5">
+  <h1 class="display-4 fw-bold">Welcome to AIClashArena 🚀</h1>
+  <p class="lead text-muted mb-4">
+    Engage in insightful AI-powered debates, explore topics, and sharpen your thinking.
+  </p>
+  <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <a href="{{ url_for('general.debate') }}" class="btn btn-primary btn-lg px-4 shadow">
+      Start a Debate
+    </a>
+  </div>
+</div>
 
+<div class="container mt-5">
+  <div class="row gy-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Why Debate with AI?</h5>
+          <p class="card-text">
+            Challenge your perspective, learn new insights, and explore arguments from multiple viewpoints — all powered by advanced AI.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Wide Topic Selection</h5>
+          <p class="card-text">
+            Dive into a variety of topics — technology, culture, ethics, and more. Expand your horizons with every debate.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Safe & Friendly</h5>
+          <p class="card-text">
+            Our platform ensures respectful discussions and thoughtful AI responses for a constructive learning experience.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
