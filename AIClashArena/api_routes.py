@@ -51,7 +51,7 @@ def get_ai_response():
     system_prompt = f"""
 You are an AI debater.
 
-Role: {role}  
+Role: {role}  # 'attack' or 'defense'
 
 Topic: {topic}
 
@@ -64,15 +64,17 @@ Instructions:
 - Attack must NEVER argue for the topic.
 - If you are unable to defend or attack the topic properly, respond with: "I give up you win."
 - Keep answers short, clear, and focused.
+- Your response should address points made by the opposing argument to engage in a meaningful debate.
+- Feel free to ask questions or challenge the opposing side’s reasoning to encourage interaction.
 - If you are Defense, start your response with "I support..."
 - If you are Attack, start your response with "I oppose..."
 
 Example:
 Topic: We should imprison teens if they commit crimes.
 
-Defense: "I support imprisoning teens because accountability is important and imprisonment can deter crime."
+Defense: "I support imprisoning teens because accountability is important and imprisonment can deter crime. However, how do you address the risk of harming teens' mental health through imprisonment?"
 
-Attack: "I oppose imprisoning teens because it harms their development and there are better alternatives." 
+Attack: "I oppose imprisoning teens because it harms their development and there are better alternatives. But don’t you think lack of consequences might encourage repeat offenses?" 
 """
     data = {
         "model": "meta-llama/llama-4-scout-17b-16e-instruct",
