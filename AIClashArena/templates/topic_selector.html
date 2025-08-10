@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Select Topic - AIClashArena{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4 text-center">Choose a Debate Topic</h2>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.topic.label(class="form-label") }}
+      {{ form.topic(class="form-control", placeholder="Enter your debate topic here...") }}
+      {% if form.topic.errors %}
+        <div class="form-text text-danger">
+          {% for error in form.topic.errors %}
+            {{ error }}<br />
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="d-grid">
+      {{ form.submit(class="btn btn-primary btn-lg") }}
+    </div>
+  </form>
+{% endblock %}
