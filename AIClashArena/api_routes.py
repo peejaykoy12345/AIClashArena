@@ -12,7 +12,7 @@ api_key = os.getenv("GROQ_API_KEY")
 
 api_bp = Blueprint('API', __name__)
 
-limiter = Limiter(key_func=get_remote_address, default_limits=["5 per minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["30 per minute"])
 limiter.init_app(app)
 
 API_TOKEN = "SKIBIDI TOILET"
@@ -20,8 +20,9 @@ API_TOKEN = "SKIBIDI TOILET"
 def token_required(f):
     def decorated(*args, **kwargs):
         token = request.headers.get("Authorization")
+        print(token)
         if not token or token != f"Bearer {API_TOKEN}":
-            abort(401, description="Unauthorized: Invalid or missing token")
+            return jsonify({"error": "Unauthorized: Invalid or missing token"}), 401
         return f(*args, **kwargs)
     decorated.__name__ = f.__name__
     return decorated
@@ -34,7 +35,7 @@ headers = {
 
 @api_bp.route("/get_ai_response", methods=["POST"])
 @token_required
-@limiter.limit("3 per minute")
+@limiter.limit("30 per minute")
 def get_ai_response():
     data = request.get_json()
     topic = data.get("topic")
@@ -49,13 +50,14 @@ def get_ai_response():
     
     system_prompt = f"""
     You are an AI designed to engage in thoughtful and balanced debates. Your task is to analyze the given topic from your assigned role, consider the opposing viewpoint, and respond with clear, logical, and well-reasoned arguments.  
-    Your role is {role}. If the previous response is empty, initiate the debate accordingly."""
+    Your role is {role}. If the previous response is empty, initiate the debate accordingly.
+    Keep your argument short and concise and play by your role you should argue against or argue for your topic and you should respond accordinly to the response sent by the opposing AI
+    The argument for the opposing side is {response}"""
     
     data = {
         "model": "meta-llama/llama-4-scout-17b-16e-instruct",
         "messages": [
             {"role": "system", "content": system_prompt},
-            {"role": "assistant", "content": response},
             {"role": "user", "content": topic}
         ],
         "temperature": 0.7,
